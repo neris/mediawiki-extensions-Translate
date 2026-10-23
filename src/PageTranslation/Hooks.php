@@ -733,7 +733,7 @@ class Hooks {
 		$languageNameUtils = $mwServices->getLanguageNameUtils();
 		foreach ( $languages as $code => $percentage ) {
 			$title = $page->getTitle()->getSubpage( $code );
-			$key = "x-pagetranslation:{$title->getPrefixedText()}";
+			$key = "$code-x-pagetranslation:{$title->getPrefixedText()}";
 			$translatedName = $page->getPageDisplayTitle( $code ) ?: $title->getPrefixedText();
 
 			if ( $title->exists() ) {
@@ -780,7 +780,7 @@ class Hooks {
 		Title $pageTitle,
 		OutputPage $out
 	) {
-		if ( !str_starts_with( $link['text'], 'x-pagetranslation:' ) ||
+		if ( !str_contains( $link['text'], '-x-pagetranslation:' ) ||
 			!isset( self::$languageLinkData[ $link['text'] ] )
 		) {
 			return;
